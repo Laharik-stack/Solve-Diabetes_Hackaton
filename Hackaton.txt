@@ -1,0 +1,81 @@
+onEvent("Back1", "click", function( ) {
+  setScreen("Title_Page");
+});
+onEvent("Back2", "click", function( ) {
+  setScreen("Title_Page");
+});
+onEvent("Next", "click", function() {
+  setScreen("1st_Screen");
+});
+onEvent("User2", "click", function() {
+  setScreen("screen3");
+});
+onEvent("Type_1", "click", function() {
+  setScreen("screen4");
+});
+onEvent("Type_2", "click", function() {
+  setScreen("screen5");
+});
+onEvent("User1", "click", function() {
+  setScreen("screen1");
+});
+onEvent("Submit", "click", function() {
+  setScreen("screen2");
+  main();
+});
+onEvent("Back", "click", function( ) {
+  setScreen("Title_Page");
+});
+function questions_first(name,age,hereditary,symptoms,smoke){
+  var type;
+  if (age<="20") {
+  type = "1";
+  }
+  else if (age > "20"){
+     type = "2";
+  }
+  if ((hereditary == "yes")&& (symptoms == "all") &&(smoke == "yes")) {
+    setText("text_area5", (("Chances of having type "+type)+" diabetes is extremely high, ")+name);
+  }
+  else if (((hereditary == "no")&&(symptoms == "no")&&(smoke == "no"))
+  ||((hereditary == "no")&&(symptoms == "no")&&(smoke == "yes"))
+  ||((hereditary == "yes")&&(symptoms == "no")&& (smoke == "no"))||
+  ((hereditary == "yes")&&(symptoms == "no")&&(smoke == "yes"))) {
+    setText("text_area5", ("Chances of having type "+type+" diabetes is low, ")+name);
+  }
+  else if (((hereditary == "no")&&(symptoms == "yes")&&(smoke == "yes"))
+  ||((hereditary == "no")&&(symptoms == "yes")&&(smoke == "no"))
+  ||((hereditary == "yes")&&(symptoms == "yes")&& (smoke == "no"))||
+  ((hereditary == "yes")&&symptoms == "yes"&&(smoke == "yes")))
+    (setText("text_area5",("Chances of having type "+type+" diabetes is high, ")+name));
+  }
+function main() {
+  var name = getText("1");
+  var age = getText("2");
+  var hereditary = getText("3");
+  if (hereditary == "yes" || hereditary == "Yes" || hereditary == "YES" ){
+      hereditary = "yes";
+  } else if ((hereditary== "no" || hereditary == "No" || hereditary == "NO")){
+    hereditary = "no";
+  } else {
+    setScreen("Invalid");
+  }
+  var smoke = getText("5");
+  if ((smoke == "yes" || smoke == "Yes" || smoke == "YES")) {
+    smoke = "yes";
+  } else if ((smoke == "no" || smoke == "No" || smoke == "NO")){
+    smoke = "no";
+  } else {
+    setScreen("Invalid");
+  }
+  var symptoms = getText("4");
+  if (symptoms == "increased urination"
+  || symptoms == "blurry vision"|| symptoms == "dried eyes"||symptoms == "dried skin"||
+   symptoms == "few" || symptoms == "most")
+     symptoms = "yes";
+  if (symptoms == "all")
+     symptoms = "all";
+  if (symptoms == "none")
+      symptoms = "no";
+  questions_first(name,age,hereditary,symptoms,smoke);
+}
